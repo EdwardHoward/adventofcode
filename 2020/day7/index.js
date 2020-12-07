@@ -608,16 +608,12 @@ input.map((bag) => {
     const b = bag.split("bags contain");
     const key = b[0].trim();
 
-    const childs = {};
-
     const children = b[1].split(",").map(c => {
         const stuff = c.match(/(\d) ([a-z\s]*) bags?/);
 
         if (stuff) {
             const count = stuff[1];
             const name = stuff[2];
-
-            childs[name] = count;
 
             return {
                 name,
@@ -627,9 +623,7 @@ input.map((bag) => {
     }).filter(b => b);
 
     bags[key] = {
-        name: key,
-        children,
-        childs
+        children
     }
 });
 
@@ -638,13 +632,11 @@ function checkBag(name) {
     let hasBag = false;
     for (var i = 0; i < bag.children.length; i++) {
         const child = bag.children[i];
-        if (child) {
-            if (child.name === "shiny gold") {
-                return true;
-            } else {
-                if (checkBag(child.name)) {
-                    hasBag = true;
-                }
+        if (child.name === "shiny gold") {
+            return true;
+        } else {
+            if (checkBag(child.name)) {
+                hasBag = true;
             }
         }
     }
@@ -663,16 +655,9 @@ colors.forEach((color) => {
 function countChildren(name, count) {
     const bag = bags[name];
 
-    if (bag.children && bag.children.length) {
-        for (var i = 0; i < bag.children.length; i++) {
-            const child = bag.children[i];
-            if (child) {
-                for (var j = 0; j < child.count; j++) {
-                    count += countChildren(child.name, 1);
-                }
-            }
-        }
-    }
+    bag.children.forEach(child => {
+        count += countChildren(child.name, 1) * child.count;
+    });
 
     return count;
 }
