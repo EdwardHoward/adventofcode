@@ -1020,14 +1020,14 @@ let input = `21
 // 309
 // 576`.split(/\n/).map(Number);
 
-function part1(input) {
-    for (var j = 25; j < input.length; j++) {
+function part1(input, length) {
+    for (var j = length; j < input.length; j++) {
         const num = input[j];
         const match = new Set();
         let matches = false;
 
         const pre = [];
-        for (var i = j - 25; i < j; i++) {
+        for (var i = j - length; i < j; i++) {
             pre.push(input[i]);
         }
 
@@ -1067,7 +1067,7 @@ function part2(limit) {
     }
 }
 
-const part1Answer = part1(input);
+const part1Answer = part1(input, 25);
 const part2Answer = part2(part1Answer);
 console.log("part 1:", part1Answer);
 console.log("part 2:", part2Answer);
