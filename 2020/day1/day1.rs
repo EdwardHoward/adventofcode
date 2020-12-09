@@ -209,13 +209,13 @@ fn main() {
 
 fn part1(s: &Vec<&str>) -> u32 {
     for i in s {
-        let num = i.parse::<u32>().unwrap();
+        let a = i.parse::<u32>().unwrap();
 
         for j in s {
-            let m = j.parse::<u32>().unwrap();
+            let b = j.parse::<u32>().unwrap();
 
-            if num + m == 2020 {
-                return num * m;
+            if a + b == 2020 {
+                return a * b;
             }
         }
     }
@@ -225,16 +225,16 @@ fn part1(s: &Vec<&str>) -> u32 {
 
 fn part2(s: &Vec<&str>) -> u32 {
     for i in s {
-        let num = i.parse::<u32>().unwrap();
+        let a = i.parse::<u32>().unwrap();
 
         for j in s {
-            let m = j.parse::<u32>().unwrap();
+            let b = j.parse::<u32>().unwrap();
     
             for k in s {
-                let n = k.parse::<u32>().unwrap();
+                let c = k.parse::<u32>().unwrap();
                 
-                if num + m + n == 2020 {
-                    return num * m * n;
+                if a + b + c == 2020 {
+                    return a * b * c;
                 }
             }
         }
