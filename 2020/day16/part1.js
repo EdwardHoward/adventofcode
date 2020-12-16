@@ -273,8 +273,8 @@ const rules = input[0].split(/\n/).map(s => {
         rules: split[1].split(' or ').map(a => {
             const f = a.split('-');
             return {
-                min: f[0],
-                max: f[1]
+                min: Number(f[0]),
+                max: Number(f[1])
             }
         })
     }
@@ -285,19 +285,20 @@ const invalid = [];
 const ns = input[2].split(/\n/);
 ns.shift()
 ns.forEach(nearby => {
-    const numbers = nearby.split(',');
+    const numbers = nearby.split(',').map(Number);
 
     numbers.forEach((num) => {
-        let valids = [];
+        let valid = false;
+
         rules.forEach((rule) => {
             rule.rules.forEach(n => {
-                if (Number(num) >= Number(n.min) && Number(num) <= Number(n.max)) {
-                    valids.push(true);
+                if (num >= n.min && num <= n.max) {
+                    valid = true;
                 }
             });
         });
 
-        if (valids.length === 0) {
+        if (!valid) {
             invalid.push(Number(num));
         }
     });
