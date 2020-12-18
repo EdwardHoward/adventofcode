@@ -29,15 +29,15 @@ let saved = JSON.parse(JSON.stringify(tileDict));
 let current = JSON.parse(JSON.stringify(tileDict));
 
 for (var i = 0; i < 6; i++) {
-    let maxX = -Infinity;
-    let maxY = -Infinity;
-    let maxZ = -Infinity;
-    let maxW = -Infinity;
+    let maxX = 0;
+    let maxY = 0;
+    let maxZ = 0;
+    let maxW = 0;
 
-    let minX = Infinity;
-    let minY = Infinity;
-    let minZ = Infinity;
-    let minW = Infinity;
+    let minX = 0;
+    let minY = 0;
+    let minZ = 0;
+    let minW = 0;
 
     Object.keys(saved).map((n) => {
         let [y, x, z, w] = n.split(',').map(Number);
@@ -105,19 +105,19 @@ console.log('Answer:', Object.values(saved).join('').length);
 
 function getNeighbors(y, x, z, w) {
     let neighbors = 0;
+
     for (var yy = -1; yy <= 1; yy++) {
         for (var xx = -1; xx <= 1; xx++) {
             for (var zz = -1; zz <= 1; zz++) {
                 for (var ww = -1; ww <= 1; ww++) {
-                    let yyy = y + yy;
-                    let xxx = x + xx;
-                    let zzz = z + zz;
-                    let www = w + ww;
+                    const yyy = y + yy;
+                    const xxx = x + xx;
+                    const zzz = z + zz;
+                    const www = w + ww;
 
                     if (xx === 0 && yy === 0 && zz === 0 && ww === 0) {
                     } else {
-                        let tile = saved[yyy + ',' + xxx + ',' + zzz + ',' + www];
-
+                        const tile = saved[yyy + ',' + xxx + ',' + zzz + ',' + www];
                         if (tile === '#') {
                             neighbors++;
                         }
